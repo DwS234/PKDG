@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
-@Table(name = "word_in_sentence")
+@Table(name = "word_in_sentences")
 @Entity
 public class WordInSentenceEntity {
 

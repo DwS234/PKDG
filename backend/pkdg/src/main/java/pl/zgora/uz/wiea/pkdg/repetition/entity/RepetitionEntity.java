@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Data
-@Table(name = "repetition")
+@Table(name = "repetitions")
 @Entity
 public class RepetitionEntity {
 
@@ -37,7 +37,7 @@ public class RepetitionEntity {
 	private int lastIntervalDays;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "username")
 	private UserEntity user;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Data
-@Table(name = "word")
+@Table(name = "words")
 @Entity
 public class WordEntity {
 
