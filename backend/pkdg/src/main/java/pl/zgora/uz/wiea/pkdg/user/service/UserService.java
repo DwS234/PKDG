@@ -1,4 +1,8 @@
 package pl.zgora.uz.wiea.pkdg.user.service;
 
-class UserService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+
 }

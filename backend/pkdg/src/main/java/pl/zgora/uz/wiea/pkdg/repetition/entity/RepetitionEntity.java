@@ -22,8 +22,9 @@ public class RepetitionEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "repetition_id")
 	private Long id;
+
+	private String repetitionId;
 
 	private LocalDate nextDate;
 

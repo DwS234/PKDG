@@ -31,7 +31,8 @@ CREATE TABLE authorities (
 CREATE UNIQUE index authorities_username_authority_uidx on authorities (username,authority);
 
 CREATE TABLE repetitions (
-    repetition_id integer PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
+    repetition_id VARCHAR(255) NOT NULL,
     next_date date NOT NULL,
     easiness decimal(10, 2) NOT NULL DEFAULT '2.00',
     consecutive_correct_answers integer NOT NULL DEFAULT '0',
