@@ -1,7 +1,6 @@
 package pl.zgora.uz.wiea.pkdg.repetition.model;
 
 import lombok.Data;
-import pl.zgora.uz.wiea.pkdg.word.model.Word;
 
 import java.time.LocalDate;
 
@@ -17,6 +16,4 @@ public class Repetition {
     private int consecutiveCorrectAnswers;
 
     private int timesSeen;
-
-    private Word word;
 }

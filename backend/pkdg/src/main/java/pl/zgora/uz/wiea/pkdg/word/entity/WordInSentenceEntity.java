@@ -2,15 +2,7 @@ package pl.zgora.uz.wiea.pkdg.word.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Table(name = "word_in_sentences")
@@ -19,12 +11,23 @@ public class WordInSentenceEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "word_example_id")
 	private Long id;
 
 	private String sentence;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "word_id")
+	@JoinColumn(name = "word_id", nullable = false)
 	private WordEntity word;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof WordInSentenceEntity)) return false;
+		return id != null && id.equals(((WordInSentenceEntity) o).getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

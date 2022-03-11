@@ -14,6 +14,7 @@ import pl.zgora.uz.wiea.pkdg.exception.RepetitionNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.UserAlreadyExistsException;
 import pl.zgora.uz.wiea.pkdg.exception.UserNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.model.ApiError;
+import pl.zgora.uz.wiea.pkdg.exception.model.WordNotFoundException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -34,7 +35,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex));
     }
 
-    @ExceptionHandler({UserNotFoundException.class, RepetitionNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class, RepetitionNotFoundException.class, WordNotFoundException.class})
     public ResponseEntity<Object> handleUserAlreadyExistsException(final RuntimeException ex) {
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex));
     }

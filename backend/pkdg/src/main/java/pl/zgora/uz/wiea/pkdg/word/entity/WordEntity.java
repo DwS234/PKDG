@@ -3,15 +3,8 @@ package pl.zgora.uz.wiea.pkdg.word.entity;
 import lombok.Data;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -19,18 +12,31 @@ import java.util.Set;
 @Entity
 public class WordEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "word_id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String entry;
+    private String wordId;
 
-	private String definition;
+    private String entry;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "word", orphanRemoval = true, fetch = FetchType.LAZY)
-	private Set<WordInSentenceEntity> examples;
+    private String definition;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "word", orphanRemoval = true, fetch = FetchType.LAZY)
-	private Set<RepetitionEntity> repetitions;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "word", orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<WordInSentenceEntity> examples = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "word", orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<RepetitionEntity> repetitions = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof WordEntity)) return false;
+        return id != null && id.equals(((WordEntity) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

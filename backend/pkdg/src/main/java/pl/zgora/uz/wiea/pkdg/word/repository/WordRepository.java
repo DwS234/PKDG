@@ -7,4 +7,5 @@ import pl.zgora.uz.wiea.pkdg.word.entity.WordEntity;
 @Repository
 public interface WordRepository extends JpaRepository<WordEntity, Long> {
 
+    WordEntity findByWordId(String wordId);
 }

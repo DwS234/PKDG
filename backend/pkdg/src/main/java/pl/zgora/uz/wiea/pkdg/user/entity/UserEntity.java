@@ -27,4 +27,16 @@ public class UserEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<RepetitionEntity> repetitions;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof UserEntity)) return false;
+		return username != null && username.equals(((UserEntity) o).getUsername());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

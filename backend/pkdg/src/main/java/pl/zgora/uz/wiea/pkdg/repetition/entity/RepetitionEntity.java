@@ -4,15 +4,7 @@ import lombok.Data;
 import pl.zgora.uz.wiea.pkdg.user.entity.UserEntity;
 import pl.zgora.uz.wiea.pkdg.word.entity.WordEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -20,28 +12,40 @@ import java.time.LocalDate;
 @Entity
 public class RepetitionEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String repetitionId;
+    private String repetitionId;
 
-	private LocalDate nextDate;
+    private LocalDate nextDate;
 
-	private double easiness;
+    private double easiness;
 
-	private int consecutiveCorrectAnswers;
+    private int consecutiveCorrectAnswers;
 
-	private int timesSeen;
+    private int timesSeen;
 
-	@Column(name = "last_interval")
-	private int lastIntervalDays;
+    @Column(name = "last_interval")
+    private int lastIntervalDays;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "username")
-	private UserEntity user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", nullable = false)
+    private UserEntity user;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "word_id")
-	private WordEntity word;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "word_id", nullable = false)
+    private WordEntity word;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RepetitionEntity)) return false;
+        return id != null && id.equals(((RepetitionEntity) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

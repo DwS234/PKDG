@@ -8,6 +8,8 @@ import java.util.List;
 @Data
 public class Word {
 
+    private String wordId;
+
     private String entry;
 
     private String definition;

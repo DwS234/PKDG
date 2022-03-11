@@ -1,5 +1,6 @@
 CREATE TABLE words (
-    word_id integer PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
+    word_id VARCHAR(255) UNIQUE NOT NULL,
     entry varchar(255) NOT NULL,
     definition varchar(255) NOT NULL
 );
@@ -7,9 +8,9 @@ CREATE TABLE words (
 CREATE UNIQUE INDEX words_entry_definition_uidx ON words (UPPER(entry), UPPER(definition));
 
 CREATE TABLE word_in_sentences (
-    word_example_id integer PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     sentence varchar(255) NOT NULL,
-    word_id integer REFERENCES words
+    word_id integer REFERENCES words(id)
 );
 
 CREATE UNIQUE INDEX word_in_sentences_word_id_sentence_uidx ON word_in_sentences (word_id, UPPER(sentence));
@@ -31,8 +32,8 @@ CREATE TABLE authorities (
 CREATE UNIQUE index authorities_username_authority_uidx on authorities (username,authority);
 
 CREATE TABLE repetitions (
-    id INTEGER PRIMARY KEY,
-    repetition_id VARCHAR(255) NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
+    repetition_id VARCHAR(255) UNIQUE NOT NULL,
     next_date date NOT NULL,
     easiness decimal(10, 2) NOT NULL DEFAULT '2.00',
     consecutive_correct_answers integer NOT NULL DEFAULT '0',

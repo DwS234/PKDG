@@ -11,4 +11,10 @@ public class WordInSentenceConverter {
         wordInSentence.setSentence(entity.getSentence());
         return wordInSentence;
     }
+
+    public static WordInSentenceEntity convertToEntity(WordInSentence wordInSentence) {
+        val wordInSentenceEntity = new WordInSentenceEntity();
+        wordInSentenceEntity.setSentence(wordInSentence.getSentence());
+        return wordInSentenceEntity;
+    }
 }

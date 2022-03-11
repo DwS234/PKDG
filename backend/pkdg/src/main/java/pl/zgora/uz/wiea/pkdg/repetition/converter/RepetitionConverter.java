@@ -3,7 +3,6 @@ package pl.zgora.uz.wiea.pkdg.repetition.converter;
 import lombok.val;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
-import pl.zgora.uz.wiea.pkdg.word.converter.WordConverter;
 
 public class RepetitionConverter {
 
@@ -14,7 +13,6 @@ public class RepetitionConverter {
         repetition.setEasiness(entity.getEasiness());
         repetition.setConsecutiveCorrectAnswers(entity.getConsecutiveCorrectAnswers());
         repetition.setTimesSeen(entity.getTimesSeen());
-        repetition.setWord(WordConverter.convertToModel(entity.getWord()));
         return repetition;
     }
 

@@ -2,7 +2,6 @@ package pl.zgora.uz.wiea.pkdg.repetition.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
@@ -16,12 +15,6 @@ import java.util.List;
 public class RepetitionController {
 
     private final RepetitionService repetitionService;
-
-    @PostMapping("/{username}")
-    public ResponseEntity<Repetition> updateRepetition(@PathVariable String username, @RequestBody Repetition repetition) {
-        val createdRepetition = repetitionService.createRepetition(username, repetition);
-        return new ResponseEntity<>(createdRepetition, HttpStatus.CREATED);
-    }
 
     @GetMapping("/{username}")
     public ResponseEntity<List<Repetition>> getRepetitionsByUsername(@PathVariable String username) {
