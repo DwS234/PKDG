@@ -11,6 +11,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import pl.zgora.uz.wiea.pkdg.IntegrationTestPostgresqlContainer;
 import pl.zgora.uz.wiea.pkdg.word.model.Word;
 import pl.zgora.uz.wiea.pkdg.word.model.WordInSentence;
 import pl.zgora.uz.wiea.pkdg.word.repository.WordRepository;
@@ -26,11 +30,16 @@ import static pl.zgora.uz.wiea.pkdg.DataFactory.buildWord;
 import static pl.zgora.uz.wiea.pkdg.DataFactory.buildWordInSentences;
 import static pl.zgora.uz.wiea.pkdg.TestUtils.*;
 
+@Testcontainers
 @ActiveProfiles(PROFILE_TEST)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class WordControllerIntegrationTest {
 
     private static final String WORDS_PATH = "/api/words/";
+
+    @Container
+    private static final PostgreSQLContainer<IntegrationTestPostgresqlContainer> postgreSQLContainer =
+            IntegrationTestPostgresqlContainer.getInstance();
 
     @Autowired
     private WebApplicationContext webApplicationContext;
