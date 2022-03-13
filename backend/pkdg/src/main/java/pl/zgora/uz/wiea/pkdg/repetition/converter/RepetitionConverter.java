@@ -13,6 +13,7 @@ public class RepetitionConverter {
         repetition.setEasiness(entity.getEasiness());
         repetition.setConsecutiveCorrectAnswers(entity.getConsecutiveCorrectAnswers());
         repetition.setTimesSeen(entity.getTimesSeen());
+        repetition.setLastIntervalDays(entity.getLastIntervalDays());
         return repetition;
     }
 
@@ -22,6 +23,7 @@ public class RepetitionConverter {
         entity.setEasiness(repetition.getEasiness());
         entity.setConsecutiveCorrectAnswers(repetition.getConsecutiveCorrectAnswers());
         entity.setTimesSeen(repetition.getTimesSeen());
+        entity.setLastIntervalDays(repetition.getLastIntervalDays());
         return entity;
     }
 }

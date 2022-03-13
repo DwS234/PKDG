@@ -1,6 +1,7 @@
 package pl.zgora.uz.wiea.pkdg.repetition.entity;
 
 import lombok.Data;
+import lombok.ToString;
 import pl.zgora.uz.wiea.pkdg.user.entity.UserEntity;
 import pl.zgora.uz.wiea.pkdg.word.entity.WordEntity;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Data
 @Table(name = "repetitions")
 @Entity
+@ToString(exclude = {"user", "word"})
 public class RepetitionEntity {
 
     @Id

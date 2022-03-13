@@ -1,4 +1,4 @@
-package pl.zgora.uz.wiea.pkdg.exception.model;
+package pl.zgora.uz.wiea.pkdg.exception;
 
 import static java.lang.String.format;
 

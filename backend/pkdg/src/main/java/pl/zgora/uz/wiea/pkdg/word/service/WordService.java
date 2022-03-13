@@ -1,6 +1,7 @@
 package pl.zgora.uz.wiea.pkdg.word.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,11 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
+import static java.util.stream.Collectors.toList;
 import static pl.zgora.uz.wiea.pkdg.word.converter.WordConverter.convertToEntity;
 import static pl.zgora.uz.wiea.pkdg.word.converter.WordConverter.convertToModel;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class WordService {
@@ -33,11 +35,16 @@ public class WordService {
         val wordEntity = convertToEntity(word);
         wordEntity.setWordId(UUID.randomUUID().toString());
         wordEntity.getExamples().forEach(e -> e.setWord(wordEntity));
-        return convertToModel(wordRepository.save(wordEntity));
+
+        val savedWordEntity = wordRepository.save(wordEntity);
+
+        log.debug("Word created with data={}", savedWordEntity);
+
+        return convertToModel(savedWordEntity);
     }
     
     @Transactional
     public List<Word> getWords(Pageable pageable) {
-        return wordRepository.findAll(pageable).getContent().stream().map(WordConverter::convertToModel).collect(toUnmodifiableList());
+        return wordRepository.findAll(pageable).getContent().stream().map(WordConverter::convertToModel).collect(toList());
     }
 }

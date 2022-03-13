@@ -14,7 +14,7 @@ import pl.zgora.uz.wiea.pkdg.exception.RepetitionNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.UserAlreadyExistsException;
 import pl.zgora.uz.wiea.pkdg.exception.UserNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.model.ApiError;
-import pl.zgora.uz.wiea.pkdg.exception.model.WordNotFoundException;
+import pl.zgora.uz.wiea.pkdg.exception.WordNotFoundException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice

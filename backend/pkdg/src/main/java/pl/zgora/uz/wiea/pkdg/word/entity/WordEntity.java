@@ -1,6 +1,7 @@
 package pl.zgora.uz.wiea.pkdg.word.entity;
 
 import lombok.Data;
+import lombok.ToString;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Data
 @Table(name = "words")
 @Entity
+@ToString(exclude = {"examples", "repetitions"})
 public class WordEntity {
 
     @Id

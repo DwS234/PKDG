@@ -14,6 +14,5 @@ public interface RepetitionRepository extends JpaRepository<RepetitionEntity, Lo
     @Query("SELECT r from RepetitionEntity r WHERE r.user.username = :username")
     List<RepetitionEntity> findAllByUsername(@Param("username") String username);
 
-    @Query("SELECT r from RepetitionEntity r WHERE r.user.username = :username and r.repetitionId = :repetitionId")
-    RepetitionEntity findByUsernameAndRepetitionId(@Param("username") String username, @Param("repetitionId") String repetitionId);
+    RepetitionEntity findByRepetitionId(String repetitionId);
 }

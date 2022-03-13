@@ -1,11 +1,13 @@
 package pl.zgora.uz.wiea.pkdg.exception.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class ApiError {
 
 	private HttpStatus status;
