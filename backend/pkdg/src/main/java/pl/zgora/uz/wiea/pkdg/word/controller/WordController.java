@@ -29,4 +29,16 @@ public class WordController {
         val words = wordService.getWords(pageable);
         return ResponseEntity.ok(words);
     }
+
+    @GetMapping("/words/autocomplete")
+    public ResponseEntity<List<String>> getWordsAutocomplete(@RequestParam("q") String q) {
+        val autocomplete = wordService.getAutocomplete(q);
+        return ResponseEntity.ok(autocomplete);
+    }
+
+    @GetMapping("/words/entry/{entry}")
+    public ResponseEntity<List<Word>> getWordsByEntry(@PathVariable String entry) {
+        val words = wordService.getWordsByEntry(entry);
+        return ResponseEntity.ok(words);
+    }
 }

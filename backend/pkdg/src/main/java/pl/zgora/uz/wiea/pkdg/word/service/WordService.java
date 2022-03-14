@@ -47,4 +47,14 @@ public class WordService {
     public List<Word> getWords(Pageable pageable) {
         return wordRepository.findAll(pageable).getContent().stream().map(WordConverter::convertToModel).collect(toList());
     }
+
+    @Transactional
+    public List<String> getAutocomplete(String q) {
+        return wordRepository.findDistinctEntriesLike(q);
+    }
+
+    @Transactional
+    public List<Word> getWordsByEntry(String entry) {
+        return wordRepository.findByEntry(entry).stream().map(WordConverter::convertToModel).collect(toList());
+    }
 }
