@@ -23,7 +23,7 @@ class AuthService {
     return axios.post(REGISTER_URL, { username, email, password });
   }
  
-  prepareAuthHeader() {
+  getToken() {
     const userString = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
     if (!userString) {
       return {};
@@ -31,12 +31,10 @@ class AuthService {
 
     const user: User = JSON.parse(userString);
     if (user && user.token) {
-      return {
-        Authorization: `Bearer ${user.token}`
-      }
+      return user.token;
     }
 
-    return {};
+    return null;
   }
 
   getLocalUser(): User | null {

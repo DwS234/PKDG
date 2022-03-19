@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
+import pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface RepetitionRepository extends JpaRepository<RepetitionEntity, Lo
     List<RepetitionEntity> findAllByUsername(@Param("username") String username);
 
     RepetitionEntity findByRepetitionId(String repetitionId);
+
+    @Query("SELECT new pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition(r.word.wordId, r.repetitionId) FROM RepetitionEntity r WHERE r.word.wordId IN (:wordsIds) AND r.user.username = :username")
+    List<WordInRepetition> findAllByWordsIdsAndUsername(@Param("wordsIds") List<String> wordsIds, @Param("username") String username);
 }

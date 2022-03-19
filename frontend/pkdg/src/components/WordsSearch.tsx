@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import Word from "../model/Word";
+import WordInRepetition from "../model/WordInRepetition";
+import RepetitionsService from "../services/repetitions/RepetitionsService";
 import WordsService from "../services/words/WordsService";
 import WordPopup from "./WordPopup";
 
@@ -9,6 +11,7 @@ const WordsSearch = () => {
   const [autocompleteVisible, setAutocompleteVisible] = useState(false);
   const [wordsPopupOpen, setWordsPopupOpen] = useState(false);
   const [words, setWords] = useState<Array<Word>>([]);
+  const [wordsInRepetition, setWordsInRepetition] = useState<Array<WordInRepetition>>([]);
 
   const onSearchChange = async (ev: ChangeEvent<HTMLInputElement>) => {
     const query = ev.currentTarget.value;
@@ -17,9 +20,13 @@ const WordsSearch = () => {
       setAutocompleteVisible(false);
       return;
     }
-    const autocompleteData = await WordsService.getAutocomplete(query);
-    setAutocomplete(autocompleteData);
-    setAutocompleteVisible(true);
+    try {
+      const autocompleteData = await WordsService.getAutocomplete(query);
+      setAutocomplete(autocompleteData);
+      setAutocompleteVisible(true);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   const onSearchInputBlur = () => {
@@ -34,7 +41,10 @@ const WordsSearch = () => {
 
   const onClickAutocompleteHint = async (autocompleteHint: string) => {
     const words = await WordsService.getWordsByEntry(autocompleteHint);
+    const wordsIs = words.map(word => word.wordId);
+    const wordsInRepetition = await RepetitionsService.getRepetitionsByWordsIds(wordsIs);
     setWords(words);
+    setWordsInRepetition(wordsInRepetition);
     setWordsPopupOpen(true);
   }
 
@@ -44,6 +54,7 @@ const WordsSearch = () => {
         open={wordsPopupOpen}
         onClose={() => setWordsPopupOpen(false)} 
         words={words}
+        wordsInRepetitionProp={wordsInRepetition}
       />
       {
         autocompleteVisible && (

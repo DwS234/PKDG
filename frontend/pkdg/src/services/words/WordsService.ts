@@ -1,10 +1,12 @@
-import axios from "axios";
 import Word from "../../model/Word";
+import axiosApiInstance from "../../utils/AxiosInterceptor";
 import { AUTOCOMPLETE_URL, WORDS_BY_ENTRY } from "./WordsEndpoints";
+
+const axios = axiosApiInstance;
 
 class WordsService {
 
-  async getAutocomplete(query: string) {
+  async getAutocomplete(query: string): Promise<Array<string>> {
     const response = await axios.get(AUTOCOMPLETE_URL, { 
       params: {
         q: query

@@ -10,6 +10,7 @@ import pl.zgora.uz.wiea.pkdg.exception.WordNotFoundException;
 import pl.zgora.uz.wiea.pkdg.repetition.converter.RepetitionConverter;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
+import pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition;
 import pl.zgora.uz.wiea.pkdg.repetition.repository.RepetitionRepository;
 import pl.zgora.uz.wiea.pkdg.user.entity.UserEntity;
 import pl.zgora.uz.wiea.pkdg.user.repository.UserRepository;
@@ -68,6 +69,16 @@ public class RepetitionService {
         log.debug("Repetition updated for repetitionId='{}' with data={}", repetitionId, repetitionEntity);
 
         return convertToModel(repetitionEntity);
+    }
+
+    public List<WordInRepetition> getRepetitionsByWordsIds(List<String> wordsIds, String username) {
+        return repetitionRepository.findAllByWordsIdsAndUsername(wordsIds, username);
+    }
+
+    @Transactional
+    public void deleteRepetition(String repetitionId) {
+        RepetitionEntity repetitionEntity = getRepetitionEntityByRepetitionIdOrThrowException(repetitionId);
+        repetitionRepository.delete(repetitionEntity);
     }
 
     private UserEntity getUserEntityByUsernameOrThrowException(String username) {
