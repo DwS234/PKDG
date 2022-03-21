@@ -7,6 +7,7 @@ import Layout from "./Layout";
 import User from "./model/User";
 import { RootState } from "./redux/reducers";
 import Login from "./views/Login";
+import MyWords from "./views/MyWords";
 import Register from "./views/Register";
 
 interface AppProps {
@@ -23,6 +24,7 @@ function App({ user }: AppProps) {
             <Layout user={user} />
           </ProtectedRoute>
         }>
+          <Route path="my-words" element={<MyWords user={user} />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

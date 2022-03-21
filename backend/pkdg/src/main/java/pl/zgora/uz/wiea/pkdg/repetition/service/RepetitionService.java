@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import pl.zgora.uz.wiea.pkdg.exception.RepetitionNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.UserNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.WordNotFoundException;
-import pl.zgora.uz.wiea.pkdg.repetition.converter.RepetitionConverter;
+import pl.zgora.uz.wiea.pkdg.repetition.converter.RepetitionWithWordConverter;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
+import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWord;
 import pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition;
 import pl.zgora.uz.wiea.pkdg.repetition.repository.RepetitionRepository;
 import pl.zgora.uz.wiea.pkdg.user.entity.UserEntity;
@@ -52,9 +53,9 @@ public class RepetitionService {
         return convertToModel(repetitionEntity);
     }
 
-    public List<Repetition> getRepetitionsByUsername(String username) {
+    public List<RepetitionWithWord> getRepetitionsByUsername(String username) {
         val repetitions = repetitionRepository.findAllByUsername(username);
-        return repetitions.stream().map(RepetitionConverter::convertToModel).collect(toList());
+        return repetitions.stream().map(RepetitionWithWordConverter::convertToModel).collect(toList());
     }
 
     @Transactional

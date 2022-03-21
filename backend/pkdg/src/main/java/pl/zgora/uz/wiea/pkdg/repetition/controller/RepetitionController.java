@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
+import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWord;
 import pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition;
 import pl.zgora.uz.wiea.pkdg.repetition.service.RepetitionService;
 
@@ -32,7 +33,7 @@ public class RepetitionController {
     }
 
     @GetMapping("/users/{username}/repetitions")
-    public ResponseEntity<List<Repetition>> getRepetitionsByUsername(@PathVariable String username) {
+    public ResponseEntity<List<RepetitionWithWord>> getRepetitionsByUsername(@PathVariable String username) {
         val repetitions = repetitionService.getRepetitionsByUsername(username);
         return ResponseEntity.ok(repetitions);
     }

@@ -1,8 +1,8 @@
 import Repetition from "../../model/Repetition";
-import Word from "../../model/Word";
+import RepetitionWithWord from "../../model/RepetitionWIthWord";
 import WordInRepetition from "../../model/WordInRepetition";
 import axiosApiInstance from "../../utils/AxiosInterceptor";
-import { getCreateRepetitionURL, getDeleteRepetitionURL, WORDS_IN_REPETITON_BY_WORDS_IDS } from "./RepetitionsEndpoints";
+import { getCreateRepetitionURL, getDeleteRepetitionURL, getRepetitionsByUsernameURL, WORDS_IN_REPETITON_BY_WORDS_IDS } from "./RepetitionsEndpoints";
 
 const axios = axiosApiInstance;
 
@@ -29,6 +29,12 @@ class RepetitionsService {
     const response = await axios.post(getCreateRepetitionURL(username, wordId), repetition);
     const data: Repetition = response.data;
 
+    return data;
+  }
+
+  async getRepetitionsByUsername(username: string) {
+    const response = await axios.get(getRepetitionsByUsernameURL(username));
+    const data: Array<RepetitionWithWord> = response.data;
     return data;
   }
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import WordsSearch from './components/WordsSearch';
 import User from './model/User';
 import { logout } from './redux/actions/auth';
@@ -11,12 +11,14 @@ interface LayoutProps {
 
 const Layout = ({ user, dispatch }: LayoutProps) => {
 
+  const { pathname } = useLocation();
+
   const onLogout = () => {
     dispatch(logout());
   }
 
   const getLinkClassName = (href: string) => {
-    const isLinkActive = href === window.location.pathname;
+    const isLinkActive = href === pathname;
     if (isLinkActive) {
       return 'block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white';
     }
@@ -49,6 +51,9 @@ const Layout = ({ user, dispatch }: LayoutProps) => {
             <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
               <li>
                 <Link className={getLinkClassName("/")} to="/">Strona główna</Link>
+              </li>
+              <li>
+                <Link className={getLinkClassName("/my-words")} to="/my-words">Moje słowa</Link>
               </li>
               <li>
                 <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" onClick={onLogout}>Wyloguj się, {user?.username}</a>

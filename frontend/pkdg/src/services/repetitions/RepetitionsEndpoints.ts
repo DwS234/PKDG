@@ -7,3 +7,5 @@ export const WORDS_IN_REPETITON_BY_WORDS_IDS =  repetitionsApi + "/repetitions/w
 export const getCreateRepetitionURL = (username: string, wordId: string) => `${repetitionsApi}/users/${username}/words/${wordId}/repetitions`;
 
 export const getDeleteRepetitionURL = (repetitionId: string) => `${repetitionsApi}/repetitions/${repetitionId}`;
+
+export const getRepetitionsByUsernameURL = (username: string) => `${repetitionsApi}/users/${username}/repetitions`;

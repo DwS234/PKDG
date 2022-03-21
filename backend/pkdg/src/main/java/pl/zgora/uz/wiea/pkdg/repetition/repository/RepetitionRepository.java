@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface RepetitionRepository extends JpaRepository<RepetitionEntity, Long> {
 
-    @Query("SELECT r from RepetitionEntity r WHERE r.user.username = :username")
+    @Query("SELECT r from RepetitionEntity r JOIN FETCH r.word WHERE r.user.username = :username")
     List<RepetitionEntity> findAllByUsername(@Param("username") String username);
 
     RepetitionEntity findByRepetitionId(String repetitionId);
