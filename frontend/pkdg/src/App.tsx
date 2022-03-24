@@ -8,7 +8,7 @@ import { RootState } from "./redux/reducers";
 import Login from "./views/Login";
 import MyWords from "./views/MyWords";
 import Register from "./views/Register";
-import AvailableWordsToRepeat from "./components/AvailableWordsToRepeat";
+import AvailableWords from "./components/available-words/AvailableWords";
 
 interface AppProps {
 	user: User | null;
@@ -26,7 +26,7 @@ function App({ user }: AppProps) {
 						</ProtectedRoute>
 					}
 				>
-					<Route index element={<AvailableWordsToRepeat user={user} />} />
+					<Route index element={<AvailableWords user={user} />} />
 					<Route path="my-words" element={<MyWords user={user} />} />
 				</Route>
 				<Route path="/login" element={<Login />} />
