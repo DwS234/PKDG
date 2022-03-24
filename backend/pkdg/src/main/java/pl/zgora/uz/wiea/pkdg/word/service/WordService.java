@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pl.zgora.uz.wiea.pkdg.repetition.repository.RepetitionRepository;
-import pl.zgora.uz.wiea.pkdg.user.repository.UserRepository;
 import pl.zgora.uz.wiea.pkdg.word.converter.WordConverter;
 import pl.zgora.uz.wiea.pkdg.word.model.Word;
 import pl.zgora.uz.wiea.pkdg.word.repository.WordRepository;
@@ -24,11 +22,7 @@ import static pl.zgora.uz.wiea.pkdg.word.converter.WordConverter.convertToModel;
 @RequiredArgsConstructor
 public class WordService {
 
-    private final UserRepository userRepository;
-
     private final WordRepository wordRepository;
-
-    private final RepetitionRepository repetitionRepository;
 
     @Transactional
     public Word createWord(Word word) {
@@ -42,7 +36,7 @@ public class WordService {
 
         return convertToModel(savedWordEntity);
     }
-    
+
     @Transactional
     public List<Word> getWords(Pageable pageable) {
         return wordRepository.findAll(pageable).getContent().stream().map(WordConverter::convertToModel).collect(toList());
@@ -56,5 +50,9 @@ public class WordService {
     @Transactional
     public List<Word> getWordsByEntry(String entry) {
         return wordRepository.findByEntry(entry).stream().map(WordConverter::convertToModel).collect(toList());
+    }
+
+    public List<Word> getAvailableWordsToRepeat(String username) {
+        return wordRepository.findAvailableByUsername(username).stream().map(WordConverter::convertToModel).collect(toList());
     }
 }

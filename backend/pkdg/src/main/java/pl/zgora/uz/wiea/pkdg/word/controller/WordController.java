@@ -41,4 +41,10 @@ public class WordController {
         val words = wordService.getWordsByEntry(entry);
         return ResponseEntity.ok(words);
     }
+
+    @GetMapping("/users/{username}/words/available-words-to-repeat")
+    public ResponseEntity<List<Word>> getAvailableWordsToRepeat(@PathVariable String username) {
+        val words = wordService.getAvailableWordsToRepeat(username);
+        return ResponseEntity.ok(words);
+    }
 }

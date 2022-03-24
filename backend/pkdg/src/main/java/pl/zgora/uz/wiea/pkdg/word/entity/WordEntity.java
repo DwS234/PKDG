@@ -24,7 +24,7 @@ public class WordEntity {
 
     private String definition;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "word", orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "word", orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<WordInSentenceEntity> examples = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "word", orphanRemoval = true, fetch = FetchType.LAZY)
