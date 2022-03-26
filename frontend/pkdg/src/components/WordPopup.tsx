@@ -81,9 +81,9 @@ const WordPopup = ({ open, onClose, words, wordsInRepetitionProp, username }: Wo
   };
 
   return <>
-    <div className="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center md:inset-0 h-modal sm:h-full" id={modalId}>
-      <div className="relative px-4 w-full max-w-4xl h-full md:h-auto">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+    <div tabIndex={-1} className="hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full flex justify-center" id={modalId}>
+      <div className="relative mt-10 mb-10 max-w-4xl h-full md:h-auto overflow-y-auto overflow-x-hidden">
+          <div className="relative bg-white shadow dark:bg-gray-700">
               <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
                   <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                       Definicje dla słowa: {words[0].entry}
