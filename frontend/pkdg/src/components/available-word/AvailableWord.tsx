@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ReactComponent as ExpandIcon } from "./ExpandIcon.svg";
+import { ReactComponent as ExpandIcon } from "../../assets/svg/ExpandIcon.svg";
 
 import Word from "../../model/Word";
 
