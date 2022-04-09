@@ -17,6 +17,6 @@ public interface WordRepository extends JpaRepository<WordEntity, Long> {
 
     List<WordEntity> findByEntry(String entry);
 
-    @Query("SELECT DISTINCT(w) FROM WordEntity w LEFT JOIN FETCH w.examples e LEFT JOIN w.repetitions r WITH r.word.id = w.id AND r.user.username = :username WHERE r.word.id IS NULL")
+    @Query("SELECT DISTINCT(w) FROM WordEntity w LEFT JOIN FETCH w.examples e LEFT JOIN w.repetitions r WITH r.word.id = w.id AND r.user.username = :username WHERE r.word.id IS NULL ORDER BY w.entry")
     List<WordEntity> findAvailableByUsername(String username);
 }
