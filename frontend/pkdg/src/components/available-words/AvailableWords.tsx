@@ -20,6 +20,10 @@ const AvailableWords = ({ user }: AvailableWordsProps) => {
 	const indexOfFirstAvailableWord = indexOfLastAvailableWord - AVAILABLE_WORDS_PER_PAGE;
 	const currentAvailableWords = availableWords.slice(indexOfFirstAvailableWord, indexOfLastAvailableWord);
 
+	if (currentAvailableWords.length === 0 && currentPage > 1) {
+		setCurrentPage(currentPage - 1);
+	};
+	
 	useEffect(() => {
 		const getWordsToAddByUser = async () => {
 			try {

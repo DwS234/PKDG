@@ -22,7 +22,7 @@ const AvailableWord = ({ word, onAddHandler }: AvailableWordProps) => {
 				+
 			</button>
 			<ExpandIcon
-				className={`absolute top-0 right-0 ${showExamples && "rotate-180"}`}
+				className={`absolute top-0 right-0 cursor-pointer ${showExamples && "rotate-180"}`}
 				onClick={() => setShowExamples((current) => !current)}
 			/>
 			{showExamples && (
