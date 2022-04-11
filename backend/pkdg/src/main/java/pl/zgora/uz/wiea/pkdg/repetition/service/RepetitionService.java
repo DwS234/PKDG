@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import pl.zgora.uz.wiea.pkdg.exception.RepetitionNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.UserNotFoundException;
 import pl.zgora.uz.wiea.pkdg.exception.WordNotFoundException;
+import pl.zgora.uz.wiea.pkdg.repetition.converter.RepetitionConverter;
+import pl.zgora.uz.wiea.pkdg.repetition.converter.RepetitionWithWordBasicConverter;
 import pl.zgora.uz.wiea.pkdg.repetition.converter.RepetitionWithWordConverter;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
 import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWord;
+import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWordBasic;
 import pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition;
 import pl.zgora.uz.wiea.pkdg.repetition.repository.RepetitionRepository;
 import pl.zgora.uz.wiea.pkdg.user.entity.UserEntity;
@@ -53,9 +56,9 @@ public class RepetitionService {
         return convertToModel(repetitionEntity);
     }
 
-    public List<RepetitionWithWord> getRepetitionsByUsername(String username) {
+    public List<RepetitionWithWordBasic> getRepetitionsByUsername(String username) {
         val repetitions = repetitionRepository.findAllByUsername(username);
-        return repetitions.stream().map(RepetitionWithWordConverter::convertToModel).collect(toList());
+        return repetitions.stream().map(RepetitionWithWordBasicConverter::convertToModel).collect(toList());
     }
 
     @Transactional
@@ -65,6 +68,7 @@ public class RepetitionService {
         repetitionEntity.setConsecutiveCorrectAnswers(repetition.getConsecutiveCorrectAnswers());
         repetitionEntity.setTimesSeen(repetition.getTimesSeen());
         repetitionEntity.setLastIntervalDays(repetition.getLastIntervalDays());
+        repetitionEntity.setEasiness(repetition.getEasiness());
         repetitionEntity = repetitionRepository.save(repetitionEntity);
 
         log.debug("Repetition updated for repetitionId='{}' with data={}", repetitionId, repetitionEntity);
@@ -104,5 +108,10 @@ public class RepetitionService {
             throw new RepetitionNotFoundException(repetitionId);
         }
         return repetitionEntity;
+    }
+
+    public List<RepetitionWithWord> getDueRepetitions(String username) {
+        val dueRepetitions = repetitionRepository.findDueRepetitions(username);
+        return dueRepetitions.stream().map(RepetitionWithWordConverter::convertToModel).collect(toList());
     }
 }

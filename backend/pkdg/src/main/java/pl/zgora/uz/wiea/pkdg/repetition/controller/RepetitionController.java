@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
 import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWord;
+import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWordBasic;
 import pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition;
 import pl.zgora.uz.wiea.pkdg.repetition.service.RepetitionService;
 
@@ -33,7 +34,7 @@ public class RepetitionController {
     }
 
     @GetMapping("/users/{username}/repetitions")
-    public ResponseEntity<List<RepetitionWithWord>> getRepetitionsByUsername(@PathVariable String username) {
+    public ResponseEntity<List<RepetitionWithWordBasic>> getRepetitionsByUsername(@PathVariable String username) {
         val repetitions = repetitionService.getRepetitionsByUsername(username);
         return ResponseEntity.ok(repetitions);
     }
@@ -47,5 +48,10 @@ public class RepetitionController {
     @GetMapping("/repetitions/words")
     public ResponseEntity<List<WordInRepetition>> getRepetitionsByWordsIds(@RequestParam List<String> wordsIds, Authentication authentication) {
         return ResponseEntity.ok(repetitionService.getRepetitionsByWordsIds(wordsIds, authentication.getName()));
+    }
+
+    @GetMapping("/repetitions/due")
+    public ResponseEntity<List<RepetitionWithWord>> getDueRepetitions(Authentication authentication) {
+        return ResponseEntity.ok(repetitionService.getDueRepetitions(authentication.getName()));
     }
 }

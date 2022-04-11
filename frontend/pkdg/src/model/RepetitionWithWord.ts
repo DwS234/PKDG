@@ -1,7 +1,7 @@
 import Repetition from "./Repetition";
-import WordBasic from "./WordBasic";
+import Word from "./Word";
 
 export default interface RepetitionWithWord {
   repetition: Repetition;
-  word: WordBasic;
+  word: Word;
 }

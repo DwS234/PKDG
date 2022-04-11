@@ -3,21 +3,19 @@ package pl.zgora.uz.wiea.pkdg.repetition.converter;
 import lombok.val;
 import pl.zgora.uz.wiea.pkdg.repetition.entity.RepetitionEntity;
 import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWord;
-import pl.zgora.uz.wiea.pkdg.word.model.WordBasic;
+import pl.zgora.uz.wiea.pkdg.word.converter.WordConverter;
 
 public class RepetitionWithWordConverter {
 
 	public static RepetitionWithWord convertToModel(RepetitionEntity entity) {
 		val repetition = RepetitionConverter.convertToModel(entity);
-		val wordBasic = new WordBasic();
+
 		val word = entity.getWord();
-		wordBasic.setDefinition(word.getDefinition());
-		wordBasic.setEntry(word.getEntry());
-		wordBasic.setWordId(word.getWordId());
+		val wordModel = WordConverter.convertToModel(word);
 
 		val repetitionWithWord = new RepetitionWithWord();
 		repetitionWithWord.setRepetition(repetition);
-		repetitionWithWord.setWord(wordBasic);
+		repetitionWithWord.setWord(wordModel);
 		return repetitionWithWord;
 	}
 }

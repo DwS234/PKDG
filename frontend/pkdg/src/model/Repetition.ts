@@ -4,4 +4,5 @@ export default interface Repetition {
   easiness: number;
   consecutiveCorrectAnswers: number;
   timesSeen: number;
+  lastIntervalDays: number;
 }

@@ -9,6 +9,7 @@ import Login from "./views/Login";
 import MyWords from "./views/MyWords";
 import Register from "./views/Register";
 import AvailableWords from "./components/available-words/AvailableWords";
+import DueRepetitions from "./views/DueRepetitions";
 
 interface AppProps {
 	user: User | null;
@@ -28,6 +29,7 @@ function App({ user }: AppProps) {
 				>
 					<Route index element={<AvailableWords user={user} />} />
 					<Route path="my-words" element={<MyWords user={user} />} />
+					<Route path="due-repetitions" element={<DueRepetitions />} />
 				</Route>
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />

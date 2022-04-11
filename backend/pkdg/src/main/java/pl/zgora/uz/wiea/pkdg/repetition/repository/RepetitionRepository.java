@@ -19,4 +19,7 @@ public interface RepetitionRepository extends JpaRepository<RepetitionEntity, Lo
 
     @Query("SELECT new pl.zgora.uz.wiea.pkdg.repetition.model.WordInRepetition(r.word.wordId, r.repetitionId) FROM RepetitionEntity r WHERE r.word.wordId IN (:wordsIds) AND r.user.username = :username")
     List<WordInRepetition> findAllByWordsIdsAndUsername(@Param("wordsIds") List<String> wordsIds, @Param("username") String username);
+
+    @Query("SELECT DISTINCT r FROM RepetitionEntity r JOIN FETCH r.word w JOIN FETCH w.examples WHERE r.user.username = :username AND r.nextDate <= now()")
+    List<RepetitionEntity> findDueRepetitions(@Param("username") String username);
 }

@@ -18,6 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.zgora.uz.wiea.pkdg.IntegrationTestPostgresqlContainer;
 import pl.zgora.uz.wiea.pkdg.exception.model.ApiError;
 import pl.zgora.uz.wiea.pkdg.repetition.model.Repetition;
+import pl.zgora.uz.wiea.pkdg.repetition.model.RepetitionWithWordBasic;
 import pl.zgora.uz.wiea.pkdg.repetition.repository.RepetitionRepository;
 import pl.zgora.uz.wiea.pkdg.user.repository.UserRepository;
 import pl.zgora.uz.wiea.pkdg.word.repository.WordRepository;
@@ -167,13 +168,13 @@ class RepetitionControllerIntegrationTest {
 
         // When
         val result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-        val returnedRepetitions = OBJECT_MAPPER.readValue(result.getResponse().getContentAsByteArray(), new TypeReference<List<Repetition>>() {
+        val returnedRepetitions = OBJECT_MAPPER.readValue(result.getResponse().getContentAsByteArray(), new TypeReference<List<RepetitionWithWordBasic>>() {
         });
 
         // Then
         assertThat(returnedRepetitions).hasSize(2);
-        assertRepetition(returnedRepetitions.get(0), nextDate1, easiness1, consecutiveCorrectAnswers1, timesSeen1, lastIntervalDays1);
-        assertRepetition(returnedRepetitions.get(1), nextDate2, easiness2, consecutiveCorrectAnswers2, timesSeen2, lastIntervalDays2);
+        assertRepetition(returnedRepetitions.get(0).getRepetition(), nextDate1, easiness1, consecutiveCorrectAnswers1, timesSeen1, lastIntervalDays1);
+        assertRepetition(returnedRepetitions.get(1).getRepetition(), nextDate2, easiness2, consecutiveCorrectAnswers2, timesSeen2, lastIntervalDays2);
     }
 
     @Test

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RepetitionWithWord from "../model/RepetitionWIthWord";
+import RepetitionWithWordBasic from "../model/RepetitionWIthWordBasic";
 import User from "../model/User";
 import RepetitionsService from "../services/repetitions/RepetitionsService";
 
@@ -10,7 +10,7 @@ interface MyWordsProps {
 
 const MyWords = ({ user }: MyWordsProps) => {
 
-  const [repetitionsWithWords, setRepetitionsWithWords] = useState<Array<RepetitionWithWord>>([]);
+  const [repetitionsWithWords, setRepetitionsWithWords] = useState<Array<RepetitionWithWordBasic>>([]);
 
   useEffect(() => {
     (async function() {
