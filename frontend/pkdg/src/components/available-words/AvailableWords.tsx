@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import User from "../../model/User";
 import Word from "../../model/Word";
@@ -22,8 +23,8 @@ const AvailableWords = ({ user }: AvailableWordsProps) => {
 
 	if (currentAvailableWords.length === 0 && currentPage > 1) {
 		setCurrentPage(currentPage - 1);
-	};
-	
+	}
+
 	useEffect(() => {
 		const getWordsToAddByUser = async () => {
 			try {
