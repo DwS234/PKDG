@@ -1,11 +1,15 @@
 package pl.zgora.uz.wiea.pkdg.user.converter;
 
+import lombok.val;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import pl.zgora.uz.wiea.pkdg.auth.model.RegisterRequest;
 import pl.zgora.uz.wiea.pkdg.common.Converter;
 import pl.zgora.uz.wiea.pkdg.user.entity.UserEntity;
 import pl.zgora.uz.wiea.pkdg.user.model.AppUserDetails;
 import pl.zgora.uz.wiea.pkdg.user.model.User;
+
+import static java.util.Collections.singleton;
 
 @Component
 public class UserConverter implements Converter<UserEntity, User> {
@@ -16,7 +20,7 @@ public class UserConverter implements Converter<UserEntity, User> {
 		user.setUsername(userEntity.getUsername());
 		user.setEmail(userEntity.getEmail());
 		user.setPassword(userEntity.getPassword());
-
+		user.setRole(userEntity.getRole());
 		return user;
 	}
 
@@ -26,7 +30,7 @@ public class UserConverter implements Converter<UserEntity, User> {
 		userEntity.setUsername(userModel.getUsername());
 		userEntity.setEmail(userModel.getEmail());
 		userEntity.setPassword(userModel.getPassword());
-
+		userEntity.setRole(userModel.getRole());
 		return userEntity;
 	}
 
@@ -44,6 +48,8 @@ public class UserConverter implements Converter<UserEntity, User> {
 		appUserDetails.setEmail(userEntity.getEmail());
 		appUserDetails.setPassword(userEntity.getPassword());
 		appUserDetails.setUsername(userEntity.getUsername());
+		val authorities = singleton(new SimpleGrantedAuthority(userEntity.getRole().toString()));
+		appUserDetails.setAuthorities(authorities);
 		return appUserDetails;
 	}
 }

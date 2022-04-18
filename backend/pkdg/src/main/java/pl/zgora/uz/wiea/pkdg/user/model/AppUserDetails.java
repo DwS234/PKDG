@@ -13,10 +13,11 @@ public class AppUserDetails implements UserDetails {
 	private String password;
 
 	private String email;
+	private Collection<? extends GrantedAuthority> authorities;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return authorities;
 	}
 
 	@Override
