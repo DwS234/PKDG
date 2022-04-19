@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.zgora.uz.wiea.pkdg.word.model.Word;
+import pl.zgora.uz.wiea.pkdg.word.model.Words;
 import pl.zgora.uz.wiea.pkdg.word.service.WordService;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class WordController {
     }
 
     @GetMapping("/words")
-    public ResponseEntity<List<Word>> getWords(Pageable pageable) {
+    public ResponseEntity<Words> getWords(Pageable pageable) {
         val words = wordService.getWords(pageable);
         return ResponseEntity.ok(words);
     }

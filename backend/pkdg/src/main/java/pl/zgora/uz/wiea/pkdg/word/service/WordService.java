@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.zgora.uz.wiea.pkdg.word.converter.WordConverter;
 import pl.zgora.uz.wiea.pkdg.word.model.Word;
+import pl.zgora.uz.wiea.pkdg.word.model.Words;
 import pl.zgora.uz.wiea.pkdg.word.repository.WordRepository;
 
 import javax.transaction.Transactional;
@@ -38,8 +39,10 @@ public class WordService {
     }
 
     @Transactional
-    public List<Word> getWords(Pageable pageable) {
-        return wordRepository.findAll(pageable).getContent().stream().map(WordConverter::convertToModel).collect(toList());
+    public Words getWords(Pageable pageable) {
+        val page = wordRepository.findAll(pageable);
+        val wordList = page.getContent().stream().map(WordConverter::convertToModel).collect(toList());
+        return new Words(wordList, page.getTotalElements());
     }
 
     @Transactional
