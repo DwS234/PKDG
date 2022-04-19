@@ -38,10 +38,10 @@ function App({ user }: AppProps) {
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route
-					path="/admin"
+					path="/admin/*"
 					element={
 						<RequireRole user={user} role={UserRole.ADMIN}>
-							<Admin user={user} />
+							<Admin />
 						</RequireRole>
 					}
 				/>
