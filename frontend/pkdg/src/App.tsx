@@ -14,47 +14,47 @@ import Admin from "./views/admin/Admin";
 import RequireRole from "./components/require-role/RequireRole";
 
 interface AppProps {
-	user: User | null;
+  user: User | null;
 }
 
 function App({ user }: AppProps) {
-	return (
-		<>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<ProtectedRoute user={user}>
-							<RequireRole user={user} role={UserRole.USER}>
-								<Layout user={user} />
-							</RequireRole>
-						</ProtectedRoute>
-					}
-				>
-					<Route index element={<AvailableWords user={user} />} />
-					<Route path="my-words" element={<MyWords user={user} />} />
-					<Route path="due-repetitions" element={<DueRepetitions />} />
-				</Route>
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
-				<Route
-					path="/admin/*"
-					element={
-						<RequireRole user={user} role={UserRole.ADMIN}>
-							<Admin />
-						</RequireRole>
-					}
-				/>
-			</Routes>
-			<AuthVerify />
-		</>
-	);
+  return (
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute user={user}>
+              <RequireRole user={user} role={UserRole.USER}>
+                <Layout user={user} />
+              </RequireRole>
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<AvailableWords user={user} />} />
+          <Route path="my-words" element={<MyWords user={user} />} />
+          <Route path="due-repetitions" element={<DueRepetitions />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/admin/*"
+          element={
+            <RequireRole user={user} role={UserRole.ADMIN}>
+              <Admin />
+            </RequireRole>
+          }
+        />
+      </Routes>
+      <AuthVerify />
+    </>
+  );
 }
 
 const mapStateToProps = (state: RootState) => {
-	return {
-		user: state.auth.user
-	};
+  return {
+    user: state.auth.user,
+  };
 };
 
 export default connect(mapStateToProps)(App);
