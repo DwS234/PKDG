@@ -30,4 +30,22 @@ public class AdminWordController {
         val words = wordService.getWords(pageable);
         return ResponseEntity.ok(words);
     }
+
+    @GetMapping("/words/{wordId}")
+    public ResponseEntity<Word> getWordById(@PathVariable String wordId) {
+        val word = wordService.getWordById(wordId);
+        return ResponseEntity.ok(word);
+    }
+
+    @PutMapping("/words/{wordId}")
+    public ResponseEntity<Word> updateWord(@PathVariable String wordId, @RequestBody Word word) {
+        val updatedWord = wordService.updateWord(wordId, word);
+        return ResponseEntity.ok(updatedWord);
+    }
+
+    @DeleteMapping("/words/{wordId}")
+    public ResponseEntity<Word> deleteWordById(@PathVariable String wordId) {
+        wordService.deleteWordById(wordId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -16,7 +16,7 @@ public class AssertUtils {
 
     public static void assertWord(Word word, String entry,String definition, String... exampleSentences) {
         assertThat(word).isNotNull();
-        assertThat(word.getWordId()).isNotBlank();
+        assertThat(word.getId()).isNotBlank();
         assertThat(word.getEntry()).isEqualTo(entry);
         assertThat(word.getDefinition()).isEqualTo(definition);
         assertThat(word.getExamples().stream().map(WordInSentence::getSentence)

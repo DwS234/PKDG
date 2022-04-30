@@ -11,7 +11,7 @@ public class WordConverter {
 
     public static Word convertToModel(WordEntity entity) {
         val word = new Word();
-        word.setWordId(entity.getWordId());
+        word.setId(entity.getWordId());
         word.setEntry(entity.getEntry());
         word.setDefinition(entity.getDefinition());
         val wordInSentences = entity.getExamples().stream().map(WordInSentenceConverter::convertToModel).collect(toList());

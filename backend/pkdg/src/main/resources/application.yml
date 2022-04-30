@@ -17,3 +17,7 @@ jwt:
   secret: zdtlD3JK56m6wTTgsNFhqzjqP
   issuer: pkdg.pl
   expiration-ms: 86400000
+
+logging.level:
+  pl.zgora.uz.wiea.pkdg:
+    word.service: DEBUG

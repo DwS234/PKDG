@@ -12,7 +12,6 @@ import {
   UpdateManyParams,
   UpdateParams,
 } from "react-admin";
-
 import AuthService from "../../../services/auth/AuthService";
 import { API_BASE_URL } from "../../../utils/Environment";
 
@@ -40,12 +39,11 @@ const WithAuthDataProvider: DataProvider = {
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
 
-    const url = `${API_URL}/${resource}?page=${page}&size=${perPage}&sort=${field},${order}`;
+    const url = `${API_URL}/${resource}?page=${page - 1}&size=${perPage}&sort=${field},${order}`;
 
     const { json }: HttpResponse = await httpClient(url);
-    for (let i = 0; i < json.data.length; i++) {
-      json.data[i] = { id: i + 1, ...json.data[i] };
-    }
+
+    console.log(url);
 
     return {
       data: json.data,
@@ -84,10 +82,10 @@ const WithAuthDataProvider: DataProvider = {
   },
 
   update: async (resource: string, params: UpdateParams) => {
-    const { id } = params;
+    const { id, data } = params;
     const url = `${API_URL}/${resource}/${id}`;
 
-    const { json }: HttpResponse = await httpClient(url, { method: "PUT" });
+    const { json }: HttpResponse = await httpClient(url, { method: "PUT", body: JSON.stringify(data) });
 
     return {
       data: json,
@@ -107,10 +105,9 @@ const WithAuthDataProvider: DataProvider = {
 
   create: async (resource: string, params: CreateParams) => {
     const { data } = params;
-
     const url = `${API_URL}/${resource}`;
 
-    const { json }: HttpResponse = await httpClient(url, { method: "POST", body: data });
+    const { json }: HttpResponse = await httpClient(url, { method: "POST", body: JSON.stringify(data) });
 
     return {
       data: json,
