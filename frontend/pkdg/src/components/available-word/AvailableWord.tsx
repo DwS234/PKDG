@@ -16,7 +16,7 @@ const AvailableWord = ({ word, onAddHandler }: AvailableWordProps) => {
 			<h4 className="font-bold inline accordion-collapse-heading-1">{word.entry}</h4>
 			<span> = {word.definition}</span>
 			<button
-				onClick={() => onAddHandler(word.wordId)}
+				onClick={() => onAddHandler(word.id)}
 				className="ml-2 text-xs font-medium text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-3 py-1.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
 			>
 				+

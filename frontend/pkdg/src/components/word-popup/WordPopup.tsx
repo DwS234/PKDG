@@ -64,11 +64,11 @@ const WordPopup = ({ open, onClose, words, wordsInRepetitionProp, username }: Wo
 			<>
 				<ol className="list-decimal dark:text-gray-400">
 					{words.map((word) => (
-						<li key={word.wordId}>
+						<li key={word.id}>
 							<span className="font-bold">{word.definition}</span>
-							{wordsInRepetition.find((w) => w.wordId === word.wordId) ? (
+							{wordsInRepetition.find((w) => w.wordId === word.id) ? (
 								<button
-									onClick={() => deleteRepetiton(word.wordId)}
+									onClick={() => deleteRepetiton(word.id)}
 									type="button"
 									title="Usuń z powtórek"
 									className="ml-2 text-xs font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
@@ -77,7 +77,7 @@ const WordPopup = ({ open, onClose, words, wordsInRepetitionProp, username }: Wo
 								</button>
 							) : (
 								<button
-									onClick={() => addRepetition(word.wordId)}
+									onClick={() => addRepetition(word.id)}
 									type="button"
 									title="Dodaj do powtórek"
 									className="ml-2 text-xs font-medium text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-3 py-1.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"

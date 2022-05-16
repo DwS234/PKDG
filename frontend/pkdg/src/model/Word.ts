@@ -1,5 +1,5 @@
 export default interface Word {
-  wordId: string,
+  id: string,
   entry: string;
   definition: string;
   examples: Array<WordInSentence>;

@@ -2,8 +2,8 @@ import { Datagrid, List, TextField } from "react-admin";
 
 const WordList = () => {
   return (
-    <List>
-      <Datagrid rowClick="edit">
+    <List exporter={false}>
+      <Datagrid rowClick="edit" bulkActionButtons={false}>
         <TextField source="id" />
         <TextField source="entry" />
         <TextField source="definition" />

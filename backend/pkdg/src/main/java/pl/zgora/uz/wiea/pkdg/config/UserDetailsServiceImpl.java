@@ -20,9 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		String errorMessage = String.format("User with username='%s' not found", username);
-		final UserEntity userEntity = userRepository.findById(username).orElseThrow(() -> new UserNotFoundException(errorMessage));
-
+		final UserEntity userEntity = userRepository.findById(username).orElseThrow(() -> new UserNotFoundException(username));
 		return userConverter.convertEntityToUserDetails(userEntity);
 	}
 }

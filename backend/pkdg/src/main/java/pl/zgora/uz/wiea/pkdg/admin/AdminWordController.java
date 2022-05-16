@@ -44,7 +44,7 @@ public class AdminWordController {
     }
 
     @DeleteMapping("/words/{wordId}")
-    public ResponseEntity<Word> deleteWordById(@PathVariable String wordId) {
+    public ResponseEntity<Void> deleteWordById(@PathVariable String wordId) {
         wordService.deleteWordById(wordId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -43,8 +43,6 @@ const WithAuthDataProvider: DataProvider = {
 
     const { json }: HttpResponse = await httpClient(url);
 
-    console.log(url);
-
     return {
       data: json.data,
       total: json.totalSize,
@@ -127,12 +125,14 @@ const WithAuthDataProvider: DataProvider = {
 
   deleteMany: async (resource: string, params: DeleteManyParams) => {
     const { ids } = params;
-    const url = `${API_URL}/${resource}/${ids.join(",")}`;
 
-    const { json }: HttpResponse = await httpClient(url, { method: "DELETE" });
+    for (let id in ids) {
+      const url = `${API_URL}/${resource}/${id}`;
+      await httpClient(url, { method: "DELETE" });
+    }
 
     return {
-      data: json,
+      data: [],
     };
   },
 };

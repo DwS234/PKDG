@@ -40,7 +40,7 @@ const WordsSearch = () => {
 
   const onClickAutocompleteHint = async (autocompleteHint: string) => {
     const words = await WordsService.getWordsByEntry(autocompleteHint);
-    const wordsIs = words.map((word) => word.wordId);
+    const wordsIs = words.map((word) => word.id);
     const wordsInRepetition = await RepetitionsService.getRepetitionsByWordsIds(wordsIs);
     setWords(words);
     setWordsInRepetition(wordsInRepetition);

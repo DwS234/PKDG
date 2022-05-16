@@ -39,7 +39,7 @@ const AvailableWords = ({ user }: AvailableWordsProps) => {
   const addRepetition = async (wordId: string) => {
     try {
       await RepetitionsService.addRepetition(wordId, user!.username);
-      setAvailableWords(availableWords.filter((availableWord) => availableWord.wordId !== wordId));
+      setAvailableWords(availableWords.filter((availableWord) => availableWord.id !== wordId));
     } catch (e) {
       console.log(e);
     }
@@ -55,7 +55,7 @@ const AvailableWords = ({ user }: AvailableWordsProps) => {
             Lista słów możliwych do dodania do powtórek
           </h5>
           {currentAvailableWords.map((availableWord) => (
-            <AvailableWord key={availableWord.wordId} word={availableWord} onAddHandler={addRepetition} />
+            <AvailableWord key={availableWord.id} word={availableWord} onAddHandler={addRepetition} />
           ))}
           {currentAvailableWords.length === 0 && <span>Brak słów możliwych do dodania do powtórek</span>}
           <Pagination
