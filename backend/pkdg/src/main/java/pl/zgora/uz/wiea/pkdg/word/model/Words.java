@@ -1,14 +1,16 @@
 package pl.zgora.uz.wiea.pkdg.word.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Getter
-@RequiredArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Words {
 
-    private final List<Word> data;
-    private final long totalSize;
+    private List<Word> data;
+    private long totalSize;
 }

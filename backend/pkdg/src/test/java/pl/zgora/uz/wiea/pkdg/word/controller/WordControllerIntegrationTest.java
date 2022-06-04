@@ -25,8 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.web.util.UriComponentsBuilder.fromPath;
 import static pl.zgora.uz.wiea.pkdg.AssertUtils.assertWord;
-import static pl.zgora.uz.wiea.pkdg.DataFactory.buildWord;
-import static pl.zgora.uz.wiea.pkdg.DataFactory.buildWordInSentences;
 import static pl.zgora.uz.wiea.pkdg.TestUtils.*;
 
 @Testcontainers
@@ -37,7 +35,7 @@ public class WordControllerIntegrationTest {
     private static final String WORDS_PATH = "/api/words/";
 
     @Container
-    private static final PostgreSQLContainer<IntegrationTestPostgresqlContainer> postgreSQLContainer =
+    private static final PostgreSQLContainer<IntegrationTestPostgresqlContainer> POSTGRESQL_CONTAINER =
             IntegrationTestPostgresqlContainer.getInstance();
 
     @Autowired
@@ -64,45 +62,56 @@ public class WordControllerIntegrationTest {
     }
 
     @Test
-    void shouldCreateWord() throws Exception {
-        // Given
-        val sentence1 = "sentence1";
-        val sentence2 = "sentence2";
-        val wordInSentences = buildWordInSentences(sentence1, sentence2);
-        val entry = "entry";
-        val definition = "definition";
-        val word = buildWord(entry, definition, wordInSentences);
-
-        val uri = fromPath(WORDS_PATH).build().toUri();
-        val request = buildPostRequest(uri, word);
-
-        // When
-        val result = mockMvc.perform(request).andExpect(status().isCreated()).andReturn();
-        val createdWord = OBJECT_MAPPER.readValue(result.getResponse().getContentAsByteArray(), Word.class);
-
-        // Then
-        assertWord(createdWord, entry, definition, sentence1, sentence2);
-    }
-
-    @Test
-    void shouldGetAllWords() throws Exception {
+    void shouldGetWordsAutocomplete() throws Exception {
         // Given
         val entry = "entry";
+        val entry2 = "anotherEntry";
         val definition = "definition";
+        val definition2 = "definition2";
         val sentence1 = "sentence1";
         val sentence2 = "sentence2";
+        val sentence3 = "sentence3";
+        val sentence4 = "sentence4";
         createWordInDatabase(wordRepository, entry, definition, sentence1, sentence2);
+        createWordInDatabase(wordRepository, entry2, definition2, sentence3, sentence4);
 
-        val uri = fromPath(WORDS_PATH).build().toUri();
+        val uri = fromPath(WORDS_PATH + "autocomplete").queryParam("q", "ano").build().toUri();
         val request = buildGetRequest(uri);
 
         // When
         val result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-        val returnedWords = OBJECT_MAPPER.readValue(result.getResponse().getContentAsByteArray(), new TypeReference<List<Word>>() {
+        val autocompleteEntries = OBJECT_MAPPER.readValue(result.getResponse().getContentAsByteArray(), new TypeReference<List<String>>() {
         });
 
         // Then
-        assertThat(returnedWords).hasSize(1);
-        assertWord(returnedWords.get(0), entry, definition, sentence1, sentence2);
+        assertThat(autocompleteEntries).isNotNull().hasSize(1);
+        assertThat(autocompleteEntries.get(0)).isEqualTo(entry2);
+    }
+
+    @Test
+    void shouldGetWordsByEntry() throws Exception {
+        // Given
+        val entry = "entry";
+        val definition = "definition";
+        val definition2 = "definition2";
+        val sentence1 = "sentence1";
+        val sentence2 = "sentence2";
+        val sentence3 = "sentence3";
+        val sentence4 = "sentence4";
+        createWordInDatabase(wordRepository, entry, definition, sentence1, sentence2);
+        createWordInDatabase(wordRepository, entry, definition2, sentence3, sentence4);
+
+        val uri = fromPath(WORDS_PATH + "entry/{entry}").buildAndExpand(entry).toUri();
+        val request = buildGetRequest(uri);
+
+        // When
+        val result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+        val words = OBJECT_MAPPER.readValue(result.getResponse().getContentAsByteArray(), new TypeReference<List<Word>>() {
+        });
+
+        // Then
+        assertThat(words).isNotNull().hasSize(2);
+        assertWord(words.get(0), entry, definition, sentence1, sentence2);
+        assertWord(words.get(1), entry, definition2, sentence3, sentence4);
     }
 }

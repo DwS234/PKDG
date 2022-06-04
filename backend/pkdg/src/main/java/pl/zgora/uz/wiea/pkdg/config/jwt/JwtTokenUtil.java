@@ -3,12 +3,16 @@ package pl.zgora.uz.wiea.pkdg.config.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Component
+@NoArgsConstructor
+@AllArgsConstructor
 public class JwtTokenUtil {
 
 	@Value("${jwt.secret}")

@@ -43,7 +43,7 @@ class RepetitionControllerIntegrationTest {
     private static final String REPETITIONS_BY_REPETITION_ID = "/api/repetitions/{repetitionId}";
 
     @Container
-    private static final PostgreSQLContainer<IntegrationTestPostgresqlContainer> postgreSQLContainer =
+    private static final PostgreSQLContainer<IntegrationTestPostgresqlContainer> POSTGRESQL_CONTAINER =
             IntegrationTestPostgresqlContainer.getInstance();
 
     @Autowired

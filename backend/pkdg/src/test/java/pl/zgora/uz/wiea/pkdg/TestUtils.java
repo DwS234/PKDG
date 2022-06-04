@@ -44,6 +44,11 @@ public class TestUtils {
                 .accept(APPLICATION_JSON).contentType(APPLICATION_JSON);
     }
 
+    @SneakyThrows
+    public static RequestBuilder buildDeleteRequest(URI uri) {
+        return MockMvcRequestBuilders.delete(uri);
+    }
+
     public static UserEntity createUserInDatabase(UserRepository userRepository, String username, String password,
                                                   String email) {
         val entity = new UserEntity();
